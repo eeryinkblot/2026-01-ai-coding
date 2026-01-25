@@ -1,8 +1,5 @@
-from __future__ import annotations
-
 from fastapi.testclient import TestClient
 
-from app import models  # noqa: F401
 from app.main import app
 
 # Use the same database as the app (configured via settings)
@@ -18,6 +15,8 @@ def test_create_todo() -> None:
     assert data["is_done"] is False
     assert "id" in data
     assert "created_at" in data
+    assert "location" in response.headers
+    assert response.headers["location"] == f"/api/todos/{data['id']}"
 
 
 def test_get_todos() -> None:

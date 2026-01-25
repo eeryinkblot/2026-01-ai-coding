@@ -1,6 +1,7 @@
+from http import HTTPStatus
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Response
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -46,16 +47,18 @@ def get_todos(db: DbDependency) -> list[TodoItemResponse]:
     ]
 
 
-@router.post("/todos", status_code=201)
+@router.post("/todos", status_code=HTTPStatus.CREATED)
 def create_todo(
     todo: TodoItemCreate,
     db: DbDependency,
+    response: Response,
 ) -> TodoItemResponse:
     """Create a new todo item."""
     db_todo = TodoItem(title=todo.title, is_done=False)
     db.add(db_todo)
     db.commit()
     db.refresh(db_todo)
+    response.headers["Location"] = f"/api/todos/{db_todo.id}"
     return TodoItemResponse(
         id=db_todo.id,
         title=db_todo.title,
@@ -71,7 +74,7 @@ def mark_todo_done(todo_id: int, db: DbDependency) -> TodoItemResponse:
     todo = db.execute(stmt).scalar_one_or_none()
 
     if not todo:
-        raise HTTPException(status_code=404, detail="Todo item not found")
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Todo item not found")
 
     todo.is_done = True
     db.commit()
@@ -91,7 +94,7 @@ def delete_todo(todo_id: int, db: DbDependency) -> None:
     todo = db.execute(stmt).scalar_one_or_none()
 
     if not todo:
-        raise HTTPException(status_code=404, detail="Todo item not found")
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Todo item not found")
 
     db.delete(todo)
     db.commit()
