@@ -13,7 +13,26 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "httpx>=0.28.1",
     "mypy>=1.19.1",
     "pytest>=9.0.2",
     "ruff>=0.14.14",
 ]
+
+[tool.mypy]
+files = ["app"]
+strict = true
+
+[tool.ruff]
+line-length = 120
+src = ["app"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["D100", "D103", "D104", "D203", "D213"]
+
+[tool.ruff.lint.per-file-ignores]
+"test_*.py" = ["S101"]  # Allow assert usage in test files
