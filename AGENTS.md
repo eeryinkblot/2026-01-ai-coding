@@ -86,6 +86,9 @@ npm run test           # Run tests (tests in src/**/*.test.tsx)
 ```
 
 ### API Schema Generation
+
+This application uses OpenAPI to generate the API schema and types. The OpenAPI specification is generated from the backend code (FastAPI). The TypeScript types are generated from the OpenAPI specification.
+
 ```bash
 # Generate OpenAPI specification
 cd backend
