@@ -112,8 +112,11 @@ uv run alembic revision --autogenerate -m "Description of changes"
 # Review the generated migration file in alembic/versions/
 
 # Then apply it:
+rm backend/app.db  # Removing the old DB is ok as it is for development
 uv run alembic upgrade head
 ```
+
+To keep a clean environment, **always** remove `app.db` before applying migrations during development.
 
 ### Running the Application
 ```bash
