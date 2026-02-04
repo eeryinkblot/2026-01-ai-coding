@@ -94,3 +94,9 @@ npm start
 ```
 
 Note that the frontend (vite) contains a proxy to the backend API (see [`vite.config.ts`](./frontend/vite.config.ts)).
+
+## Reverse Proxy Setup
+
+```bash
+docker run --rm -it -v ~/.mitmproxy:/home/mitmproxy/.mitmproxy -p 8080:8080 -p 8081:8081 mitmproxy/mitmproxy mitmweb --web-host 0.0.0.0 --listen-host 0.0.0.0 --listen-port 8080
+```
