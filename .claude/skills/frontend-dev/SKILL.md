@@ -37,6 +37,7 @@ You are an expert in TypeScript + React (Vite) development. You write maintainab
 - Use nested selectors to reduce repetition and keep styles readable.
 - Keep global styles limited to `src/styles.css` (base tokens, typography, resets).
 - Avoid `!important`; fix specificity/structure instead.
+- Avoid CSS inline styles except for dynamic values (e.g., computed widths).
 
 ## Accessibility
 
