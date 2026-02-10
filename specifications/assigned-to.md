@@ -56,3 +56,18 @@ Users need the ability to view only the tasks assigned to a specific person.
 - The filter should show current assignments only
 - When a person is selected, only their tasks should be visible
 - The count of tasks should reflect the filtered view
+
+## Required Quality Assurance
+
+Once the entire code has been written, perform the following quality assurance steps:
+
+* Use the database-filler subagent to fill the database with meaningful demo data
+* Run the application (backend and frontend).
+* Use the browser subagent to test the application. The test must include at least the following steps:
+  * Create a new person
+  * Create a new task assigned to the person
+  * Filter the list of tasks to show only the tasks assigned to the person. Make sure the new task is listed as assigned to the person.
+  * Mark a task as done
+  * Unassign the task from the person
+  * Filter the list of tasks to show only the unassigned tasks. Make sure the new task is listed as unassigned.
+  * Delete the task from the list.
