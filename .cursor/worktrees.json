@@ -1,10 +1,10 @@
 {
     "setup-worktree": [
-      "cd backend && uv sync",
-      "cd frontend && npm install",
+      "cd backend && uv sync && cd ..",
+      "cd frontend && npm install && cd ..",
       "cp $ROOT_WORKTREE_PATH/.env .env",
-      "cd backend && uv run alembic upgrade head",
-      "cd backend && uv run python scripts/export_openapi.py",
-      "cd frontend && npm run generate-types"
+      "cd backend && uv run alembic upgrade head && cd ..",
+      "cd backend && uv run python scripts/export_openapi.py && cd ..",
+      "cd frontend && npm run generate-types && cd .."
     ]
   }
